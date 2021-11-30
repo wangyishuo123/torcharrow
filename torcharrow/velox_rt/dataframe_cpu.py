@@ -12,7 +12,6 @@ from typing import (
     Dict,
     Iterable,
     List,
-    Literal,
     Mapping,
     Optional,
     Sequence,
@@ -53,7 +52,7 @@ from .typing import get_velox_type
 # -----------------------------------------------------------------------------
 # DataFrames aka (StructColumns, can be nested as StructColumns:-)
 
-DataOrDTypeOrNone = Union[Mapping, Sequence, dt.DType, Literal[None]]
+DataOrDTypeOrNone = Optional[Union[Mapping, Sequence, dt.DType]]
 
 
 class DataFrameCpu(ColumnFromVelox, IDataFrame):
@@ -339,8 +338,7 @@ class DataFrameCpu(ColumnFromVelox, IDataFrame):
     def map(
         self,
         arg: Union[Dict, Callable],
-        /,
-        na_action: Literal["ignore", None] = None,
+        na_action=None,
         dtype: Optional[dt.DType] = None,
         columns: Optional[List[str]] = None,
     ):
@@ -396,7 +394,7 @@ class DataFrameCpu(ColumnFromVelox, IDataFrame):
     def flatmap(
         self,
         arg: Union[Dict, Callable],
-        na_action: Literal["ignore", None] = None,
+        na_action=None,
         dtype: Optional[dt.DType] = None,
         columns: Optional[List[str]] = None,
     ):
@@ -503,7 +501,7 @@ class DataFrameCpu(ColumnFromVelox, IDataFrame):
         self,
         by: Optional[List[str]] = None,
         ascending=True,
-        na_position: Literal["last", "first"] = "last",
+        na_position="last",
     ):
         """Sort a column/a dataframe in ascending or descending order"""
         # Not allowing None in comparison might be too harsh...

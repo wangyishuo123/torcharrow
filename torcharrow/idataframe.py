@@ -8,7 +8,6 @@ from typing import (
     Callable,
     Iterable,
     List,
-    Literal,
     Mapping,
     Optional,
     Sequence,
@@ -151,7 +150,7 @@ def DataFrame(
 # -----------------------------------------------------------------------------
 # DataFrames aka (StructColumns, can be nested as StructColumns:-)
 
-DataOrDTypeOrNone = Union[Mapping, Sequence, dt.DType, Literal[None]]
+DataOrDTypeOrNone = Optional[Union[Mapping, Sequence, dt.DType]]
 
 
 class IDataFrame(IColumn):
@@ -213,7 +212,6 @@ class IDataFrame(IColumn):
     def transform(
         self,
         func: Callable,
-        /,
         dtype: Optional[dt.DType] = None,
         format: str = "column",
         columns: Optional[List[str]] = None,
